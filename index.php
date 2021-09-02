@@ -4,12 +4,6 @@ require 'vendor/autoload.php';
 use \Monolog\Logger;
 use \Monolog\Handler\StreamHandler;
 
-// use \Electrolinux\Phpquery;
-
-// use PhpQuery\PhpQuery;
-
-// use PHPHtmlParser\Dom;
-// use PHPHtmlParser\Options;
 
 // ロガー作成
 $logger = new Logger('sample');
