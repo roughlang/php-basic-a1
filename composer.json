@@ -1,5 +1,6 @@
 {
   "require": {
-    "monolog/monolog": "1.0.*"
+    "monolog/monolog": "1.0.*",
+    "electrolinux/phpquery": "^0.9.6"
   }
 }
