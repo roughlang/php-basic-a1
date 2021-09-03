@@ -12,6 +12,14 @@ $logger->info('information log');
 
 // スクレイピング
 $url = "http://adult-gazou.me/sm%E3%83%97%E3%83%AC%E3%82%A4/25274";
+$url = "https://www.google.com/search?q=%E7%B7%8A%E7%B8%9B%20SM%20%E9%9E%AD&tbm=isch&tbs=isz:l&hl=ja&sa=X&ved=0CAIQpwVqFwoTCICuxNTo4PICFQAAAAAdAAAAABAJ&biw=1440&bih=763#imgrc=KWF7ZjWgU8g1bM";
+$url = "https://tv.rakuten.co.jp/adult/content/200921/";
+$url = "http://adult-gazou.me/sm%e3%83%97%e3%83%ac%e3%82%a4/27755";
+$url = "http://adult-gazou.me/sm%e3%83%97%e3%83%ac%e3%82%a4/27198";
+$url = "http://adult-gazou.me/sm%e3%83%97%e3%83%ac%e3%82%a4/26924";
+$url = "http://adult-gazou.me/%e3%82%bb%e3%83%83%e3%82%af%e3%82%b9/22713";
+$url = "http://adult-gazou.me/%e3%82%bb%e3%83%83%e3%82%af%e3%82%b9/22380";
+
 $html = file_get_contents($url);
 // $html = tidy_repair_string($html, ['indent' => true], 'utf8');
 
@@ -20,53 +28,26 @@ foreach ($images as $image_url) {
   // var_dump($image_url[1]);
   foreach ($image_url as $key=>$val) {
     if (!empty($val)) {
-      echo $val."\n";
-      $data = file_get_contents($val);
+      
+      $data = @file_get_contents($val);
+      
 
       if (!empty($data)) {
-        $filename = mt_rand(1111,9999).".jpg";
+        $filename = mt_rand(1111,9999).uniqid().".jpg";
         file_put_contents('./download/'.$filename,$data);
+        echo $val."\n";
         sleep(1);
+        // 
+        $imagesize = getimagesize("./download/".$filename);
+        echo $imagesize[0]."\n";
+        echo $imagesize[1]."\n";
+        if ($imagesize[0] < 680 || $imagesize[1] < 680) {
+          unlink("./download/".$filename);
+        }
       }
     }
   }
 }
-
-
-
-// var_dump($images);
-
-
-// var_dump($html);
-
-/**
- * 
- * useしなくてもよい
- * url: https://packagist.org/packages/electrolinux/phpquery
- */
-
-// $html_object = phpQuery::newDocument(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
-// $targets = $html_object['body'];
-// var_dump($targets);
-// foreach($targets as $val) {
-//   // pq()メソッドでオブジェクトとして再設定しつつさらに下ってhrefを取得
-//   // echo pq($val)->find('a')->attr('href').PHP_EOL;
-//   // echo pq($val);
-//   echo pq($val)
-//     ->find('div');
-// }
-// var_dump($h2s);
-
-// echo PhpQuery::newDocument($html)->find("h1")->text();
-// $get =  phpQuery::newDocument(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'))
-//           ->find('.article')
-//           ->find('a')
-//           ->trait_exists();
-
-// foreach($get as $item) {
-//   var_dump($item);
-// }
-// var_dump($get);
 
 
 
